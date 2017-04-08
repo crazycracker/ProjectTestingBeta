@@ -1,0 +1,54 @@
+{% extends 'account/base.html' %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="/static/css/imageStyling.css"/>
+{% endblock %}
+{% block javascript %}
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <ul class="nav nav-tabs nav-justified">
+            <li class="active"><a href="#classroom" data-toggle="tab">Classroom</a></li>
+            <li><a href="#lab" data-toggle="tab">Labs</a></li>
+            <li><a href="#auditorium" data-toggle="tab">Auditorium</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="classroom" role="tabpanel">
+                {% for classrooms in classroom %}
+                    <form action="{% url 'classrooms' block_name=classrooms.block %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">
+                            {% if classrooms.block == "cc1" %}
+                                ComputerCenter-1
+                            {% elif classrooms.block == "cc2" %}
+                                ComputerCenter-2
+                            {% elif classrooms.block == "cc3" %}
+                                ComputerCenter-3
+                            {% elif classrooms.block == "lt" %}
+                                Lecture theatre
+                            {% endif %}
+                        </button>
+                    </form>
+                {% endfor %}
+            </div>
+            <div class="tab-pane fade" id="lab" role="tabpanel">
+                {% for lab in labs %}
+                    <form action="{% url 'lab' block_name=lab.block %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">
+                            {% if lab.block == "cc1" %}
+                                ComputerCenter-1
+                            {% elif lab.block == "cc2" %}
+                                ComputerCenter-2
+                            {% elif lab.block == "cc3" %}
+                                ComputerCenter-3
+                            {% elif lab.block == "lt" %}
+                                Lecture theatre
+                            {% endif %}
+                        </button>
+                    </form>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
